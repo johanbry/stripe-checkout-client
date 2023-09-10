@@ -15,6 +15,8 @@ import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import UserProfile from "./pages/UserProfile/UserProfile";
 
+import "./index.css";
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Root />}>
