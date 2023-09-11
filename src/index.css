@@ -16,9 +16,7 @@ body {
   background-color: #efefef;
 }
 
-#root {
-  /* padding: 0.5rem 1rem; */
-  /*   display: flex;
-  flex-direction: column;
-  align-items: center; */
+a {
+  text-decoration: none;
+  color: inherit;
 }

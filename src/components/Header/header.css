@@ -19,3 +19,9 @@ header {
     color: rgb(29, 29, 29);
   }
 }
+
+.header-icon-buttons {
+  > a > svg {
+    font-size: 2.5rem;
+  }
+}
