@@ -16,6 +16,7 @@ import Register from "./pages/Register/Register";
 import UserProfile from "./pages/UserProfile/UserProfile";
 
 import "./index.css";
+import UserProvider from "./context/UserContext";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -32,6 +33,8 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <UserProvider>
+      <RouterProvider router={router} />
+    </UserProvider>
   </React.StrictMode>
 );
