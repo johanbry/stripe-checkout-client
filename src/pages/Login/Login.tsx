@@ -8,7 +8,7 @@ const Login = (props: Props) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const { login, errorMessage } = useUserContext();
+  const { login, errorMessage, infoMessage } = useUserContext();
 
   const handleLogin = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,6 +33,7 @@ const Login = (props: Props) => {
         <button>Login</button>
       </form>
       {errorMessage && <p>{errorMessage}</p>}
+      {infoMessage && <p>{infoMessage}</p>}
     </>
   );
 };
