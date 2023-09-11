@@ -5,6 +5,7 @@ import {
   PropsWithChildren,
   useEffect,
 } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface IUser {
   stripeId: string;
@@ -15,7 +16,7 @@ interface IUser {
 interface IUserContext {
   user: IUser | null;
   errorMessage: string | null;
-  login: (email: string, password: string) => void;
+  login: (email: string, password: string, redirect?: string) => void;
   logout: () => void;
 }
 
@@ -27,6 +28,8 @@ const UserProvider = ({ children }: PropsWithChildren) => {
   const [user, setUser] = useState<IUser | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const authorize = async () => {
@@ -42,7 +45,7 @@ const UserProvider = ({ children }: PropsWithChildren) => {
     authorize();
   }, []);
 
-  const login = async (email: string, password: string) => {
+  const login = async (email: string, password: string, redirect: string) => {
     try {
       const res = await fetch("/api/users/login", {
         method: "POST",
@@ -53,6 +56,7 @@ const UserProvider = ({ children }: PropsWithChildren) => {
       const data = await res.json();
       setUser(data);
       setErrorMessage(null);
+      if (redirect) navigate(redirect);
     } catch (error) {
       console.log(error);
 

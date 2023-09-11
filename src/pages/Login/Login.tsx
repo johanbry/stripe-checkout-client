@@ -1,5 +1,6 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { useUserContext } from "../../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 type Props = {};
 
@@ -11,9 +12,7 @@ const Login = (props: Props) => {
 
   const handleLogin = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("handlelogin", email, password);
-
-    login(email, password);
+    login(email, password, "/userprofile");
   };
 
   return (
