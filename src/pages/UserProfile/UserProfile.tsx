@@ -4,7 +4,7 @@ import { useUserContext } from "../../context/UserContext";
 type Props = {};
 
 const UserProfile = (props: Props) => {
-  const { user, logout } = useUserContext();
+  const { user, infoMessage, logout } = useUserContext();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -13,6 +13,7 @@ const UserProfile = (props: Props) => {
   };
   return (
     <div>
+      {infoMessage && <p>{infoMessage}</p>}
       <h3>User information:</h3> Name: {user?.name}
       <br />
       Email: {user?.email}
