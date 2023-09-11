@@ -12,7 +12,9 @@ const Root = (props: Props) => {
     <>
       <Header />
       <main>
-        <Outlet />
+        <div className="main-container">
+          <Outlet />
+        </div>
       </main>
       <Footer />
     </>
