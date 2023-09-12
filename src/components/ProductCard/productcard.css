@@ -1,0 +1,13 @@
+.product-card {
+  /* width: 250px; */
+  width: 100%;
+  background-color: #fff;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  > img {
+    width: 100%;
+  }
+  > span {
+    font-weight: bolder;
+  }
+}
