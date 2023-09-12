@@ -5,19 +5,20 @@ import Footer from "../components/Footer/Footer";
 
 import "./root.css";
 import UserProvider from "../context/UserContext";
+import CartProvider from "../context/CartContext";
 
-type Props = {};
-
-const Root = (props: Props) => {
+const Root = () => {
   return (
     <UserProvider>
-      <Header />
-      <main>
-        <div className="main-container">
-          <Outlet />
-        </div>
-      </main>
-      <Footer />
+      <CartProvider>
+        <Header />
+        <main>
+          <div className="main-container">
+            <Outlet />
+          </div>
+        </main>
+        <Footer />
+      </CartProvider>
     </UserProvider>
   );
 };
