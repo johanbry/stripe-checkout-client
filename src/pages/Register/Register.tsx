@@ -9,7 +9,7 @@ const Register = (props: Props) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const { register, errorMessage, infoMessage } = useUserContext();
+  const { register, errorMessage, isLoading, infoMessage } = useUserContext();
 
   const handleRegister = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -43,7 +43,7 @@ const Register = (props: Props) => {
           placeholder="password"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button>Register</button>
+        <button>{isLoading ? "Working..." : "Register"}</button>
       </form>
       {errorMessage && <p>{errorMessage}</p>}
       {infoMessage && <p>{infoMessage}</p>}
