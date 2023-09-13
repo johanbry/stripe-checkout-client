@@ -14,6 +14,7 @@ const Home = () => {
       try {
         setIsLoading(true);
         const res = await fetch("/api/products");
+        if (!res.ok) throw Error;
         const data = await res.json();
 
         const products: IProduct[] = data.map((prod: any) => {
@@ -22,6 +23,7 @@ const Home = () => {
             name: prod.name,
             description: prod.description,
             price: prod.default_price.unit_amount,
+            price_id: prod.default_price.id,
             image: prod.images[0],
           };
         });
@@ -47,14 +49,3 @@ const Home = () => {
 };
 
 export default Home;
-
-{
-  /* <div key={product.id} className="product-card">
-<img src={product.images[0]} />
-<h3>{product.name}</h3> <p>{product.description}</p>
-<span>{product.default_price.unit_amount / 100}</span>
-<button type="button" onClick={handleAddToCart}>
-  Add
-</button>
-</div> */
-}
