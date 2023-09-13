@@ -15,6 +15,7 @@ interface IUser {
 
 interface IUserContext {
   user: IUser | null;
+  isLoading: boolean;
   errorMessage: string | null;
   infoMessage: string | null;
   register: (
@@ -54,7 +55,6 @@ const UserProvider = ({ children }: PropsWithChildren) => {
   }, []);
 
   useEffect(() => {
-    console.log("innan timer");
     const timer = setTimeout(() => {
       setInfoMessage(null);
     }, 5000);
@@ -71,6 +71,7 @@ const UserProvider = ({ children }: PropsWithChildren) => {
     password: string
   ) => {
     try {
+      setIsLoading(true);
       setInfoMessage(null);
       setErrorMessage(null);
       const res = await fetch("/api/users/register", {
@@ -131,7 +132,15 @@ const UserProvider = ({ children }: PropsWithChildren) => {
 
   return (
     <UserContext.Provider
-      value={{ user, errorMessage, infoMessage, register, login, logout }}
+      value={{
+        user,
+        errorMessage,
+        isLoading,
+        infoMessage,
+        register,
+        login,
+        logout,
+      }}
     >
       {children}
     </UserContext.Provider>
