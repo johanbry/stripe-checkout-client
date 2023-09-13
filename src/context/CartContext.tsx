@@ -4,9 +4,13 @@ export interface IProduct {
   id: string;
   name: string;
   description: string;
+  default_price: {
+    id: string;
+    unit_amount: number;
+  };
   price: number;
   price_id: string;
-  image: string;
+  images: string[];
 }
 
 export interface ICartItem extends IProduct {
@@ -62,7 +66,7 @@ const CartProvider = ({ children }: PropsWithChildren) => {
 
   const cartTotal = () => {
     return cartItems.reduce(
-      (sum: number, item) => sum + item.qty * item.price,
+      (sum: number, item) => sum + item.qty * item.default_price.unit_amount,
       0
     );
   };

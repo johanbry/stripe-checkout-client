@@ -51,7 +51,8 @@ const Cart = (props: Props) => {
     <div>
       {cartItems.map((item) => (
         <div key={item.id}>
-          {item.qty} x {item.name}[{item.id}] á {item.price} - {item.price_id}
+          {item.qty} x {item.name}[{item.id}] á {item.default_price.unit_amount}
+          - {item.default_price.id}
           <button type="button" onClick={() => handleSubtract(item.id)}>
             -
           </button>

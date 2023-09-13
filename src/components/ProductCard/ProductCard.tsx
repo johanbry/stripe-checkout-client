@@ -13,9 +13,9 @@ const ProductCard = ({ product }: Props) => {
   };
   return (
     <div className="product-card">
-      <img src={product.image} />
+      <img src={product.images[0]} />
       <h3>{product.name}</h3> <p>{product.description}</p>
-      <span>{product.price / 100}</span>
+      <span>{product.default_price.unit_amount / 100}</span>
       <button type="button" onClick={handleAddToCart}>
         Add
       </button>

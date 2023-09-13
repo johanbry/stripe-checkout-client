@@ -15,9 +15,9 @@ const Home = () => {
         setIsLoading(true);
         const res = await fetch("/api/products");
         if (!res.ok) throw Error;
-        const data = await res.json();
+        const products: IProduct[] = await res.json();
 
-        const products: IProduct[] = data.map((prod: any) => {
+        /*         const products: IProduct[] = data.map((prod) => {
           return {
             id: prod.id,
             name: prod.name,
@@ -26,7 +26,7 @@ const Home = () => {
             price_id: prod.default_price.id,
             image: prod.images[0],
           };
-        });
+        }); */
 
         setProducts(products);
         setIsLoading(false);
