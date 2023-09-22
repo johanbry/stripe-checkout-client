@@ -6,29 +6,20 @@ import {
   useEffect,
 } from "react";
 import { useNavigate } from "react-router-dom";
+import { IUserContext, IUser } from "../interfaces/interfaces";
 
-interface IUser {
-  stripeId: string;
-  name: string;
-  email: string;
-}
+const defaultValues = {
+  user: null,
+  isLoading: false,
+  errorMessage: null,
+  registerSuccess: false,
+  setRegisterSuccess: () => {},
+  register: () => {},
+  login: () => {},
+  logout: () => {},
+};
 
-interface IUserContext {
-  user: IUser | null;
-  isLoading: boolean;
-  errorMessage: string | null;
-  infoMessage: string | null;
-  register: (
-    firstName: string,
-    lastName: string,
-    email: string,
-    password: string
-  ) => void;
-  login: (email: string, password: string, redirect: string) => void;
-  logout: () => void;
-}
-
-export const UserContext = createContext<IUserContext>(null as any);
+export const UserContext = createContext<IUserContext>(defaultValues);
 
 export const useUserContext = () => useContext(UserContext);
 
@@ -36,7 +27,7 @@ const UserProvider = ({ children }: PropsWithChildren) => {
   const [user, setUser] = useState<IUser | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [infoMessage, setInfoMessage] = useState<string | null>(null);
+  const [registerSuccess, setRegisterSuccess] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -44,50 +35,40 @@ const UserProvider = ({ children }: PropsWithChildren) => {
     const authorize = async () => {
       try {
         const res = await fetch("/api/users/authorize");
-        if (!res.ok) throw new Error(res.status.toString());
         const data = await res.json();
+        if (!res.ok) throw new Error(data);
         setUser(data);
       } catch (error) {
-        console.log(error);
+        //
       }
     };
     authorize();
-  }, []);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setInfoMessage(null);
-    }, 5000);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [infoMessage]);
+  }, [setUser]);
 
   const register = async (
     firstName: string,
     lastName: string,
     email: string,
-    password: string
+    password: string,
+    redirect: string | undefined
   ) => {
     try {
       setIsLoading(true);
-      setInfoMessage(null);
       setErrorMessage(null);
+      setRegisterSuccess(true);
       const res = await fetch("/api/users/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ firstName, lastName, email, password }),
       });
-      if (!res.ok) throw new Error(res.status.toString());
-      //const data = await res.json();
-      //await login(email, password, "/userprofile");
-      navigate("/login");
-      setInfoMessage("Welcome! Your account is created, please log in.");
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data);
+      }
+      setRegisterSuccess(true);
+      if (redirect) navigate(redirect);
     } catch (error) {
-      console.log(error);
-
-      setErrorMessage("Failed to register. " + error);
+      setErrorMessage((error as Error).message);
     } finally {
       setIsLoading(false);
     }
@@ -96,25 +77,22 @@ const UserProvider = ({ children }: PropsWithChildren) => {
   const login = async (
     email: string,
     password: string,
-    redirect: string | null = null
+    redirect: string | undefined
   ) => {
     try {
-      setInfoMessage(null);
       setErrorMessage(null);
       const res = await fetch("/api/users/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
-      if (!res.ok) throw new Error(res.status.toString());
       const data = await res.json();
+      if (!res.ok) throw new Error(data);
+
       setUser(data);
-      setInfoMessage("You are now logged in!");
       if (redirect) navigate(redirect);
     } catch (error) {
-      console.log(error);
-
-      setErrorMessage("Failed to login. " + error);
+      setErrorMessage((error as Error).message);
     } finally {
       setIsLoading(false);
     }
@@ -124,9 +102,8 @@ const UserProvider = ({ children }: PropsWithChildren) => {
     try {
       await fetch("/api/users/logout");
       setUser(null);
-      setInfoMessage("You are now logged out!");
     } catch (error) {
-      console.log("Error when logging out on server");
+      //
     }
   };
 
@@ -136,10 +113,11 @@ const UserProvider = ({ children }: PropsWithChildren) => {
         user,
         errorMessage,
         isLoading,
-        infoMessage,
+        registerSuccess,
         register,
         login,
         logout,
+        setRegisterSuccess,
       }}
     >
       {children}

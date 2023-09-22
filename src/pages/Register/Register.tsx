@@ -1,53 +1,33 @@
-import { useState, FormEvent } from "react";
+import { SubmitHandler } from "react-hook-form";
 import { useUserContext } from "../../context/UserContext";
+import { IRegisterUser } from "./../../interfaces/interfaces";
+import RegisterForm from "../../components/RegisterForm/RegisterForm";
+import { Link } from "react-router-dom";
 
-type Props = {};
+const Register = () => {
+  const { register, errorMessage, isLoading } = useUserContext();
 
-const Register = (props: Props) => {
-  const [firstName, setFirstName] = useState<string>("");
-  const [lastName, setLastName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-
-  const { register, errorMessage, isLoading, infoMessage } = useUserContext();
-
-  const handleRegister = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    register(firstName, lastName, email, password);
+  const onSubmit: SubmitHandler<IRegisterUser> = async (
+    data: IRegisterUser
+  ) => {
+    register(
+      data.firstName,
+      data.lastName,
+      data.email,
+      data.password,
+      "/login"
+    );
   };
 
   return (
-    <>
-      <form onSubmit={(e) => handleRegister(e)}>
-        <input
-          type="text"
-          value={firstName}
-          placeholder="first name"
-          onChange={(e) => setFirstName(e.target.value)}
-        />
-        <input
-          type="text"
-          value={lastName}
-          placeholder="last name"
-          onChange={(e) => setLastName(e.target.value)}
-        />
-        <input
-          type="text"
-          value={email}
-          placeholder="email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="text"
-          value={password}
-          placeholder="password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button>{isLoading ? "Working..." : "Register"}</button>
-      </form>
+    <div className="box-container form-wrapper">
+      <h1>Registrera</h1>
+      <RegisterForm isLoading={isLoading} onSubmit={onSubmit} />
       {errorMessage && <p>{errorMessage}</p>}
-      {infoMessage && <p>{infoMessage}</p>}
-    </>
+      <div className="toggle-link">
+        <Link to="/login">Logga in</Link>
+      </div>
+    </div>
   );
 };
 

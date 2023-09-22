@@ -1,0 +1,40 @@
+.order-summary {
+  margin: 1rem 0;
+}
+
+.order-summary-items {
+  font-size: 0.8rem;
+  overflow-x: auto;
+
+  > table {
+    width: 100%;
+    margin: 1rem 0 0.5rem 0;
+  }
+
+  > table > tbody > tr > td {
+    padding: 0.1rem;
+  }
+  > table > tbody > tr > td .no-wrap {
+    white-space: nowrap;
+  }
+  .cell-center {
+    text-align: center;
+  }
+  .cell-right {
+    text-align: right;
+  }
+  .cell-left {
+    text-align: left;
+  }
+}
+
+.order-total {
+  text-align: right;
+  font-weight: bold;
+}
+
+@media screen and (min-width: 600px) {
+  .order-summary-items {
+    font-size: 1rem;
+  }
+}

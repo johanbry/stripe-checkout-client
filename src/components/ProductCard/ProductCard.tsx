@@ -1,4 +1,6 @@
-import { IProduct, useCartContext } from "./../../context/CartContext";
+import { formatPrice } from "../../utils/price";
+import { IProduct } from "./../../interfaces/interfaces";
+import { useCartContext } from "./../../context/CartContext";
 import "./productcard.css";
 
 type Props = {
@@ -14,11 +16,13 @@ const ProductCard = ({ product }: Props) => {
   return (
     <div className="product-card">
       <img src={product.images[0]} />
-      <h3>{product.name}</h3> <p>{product.description}</p>
-      <span>{product.default_price.unit_amount / 100}</span>
-      <button type="button" onClick={handleAddToCart}>
-        Add
-      </button>
+      <h3>{product.name}</h3>
+      <div>
+        <span>{formatPrice(product.default_price.unit_amount)}</span>
+        <button type="button" className="float-right" onClick={handleAddToCart}>
+          KÖP
+        </button>
+      </div>
     </div>
   );
 };

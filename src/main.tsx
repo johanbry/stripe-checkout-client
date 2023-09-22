@@ -16,7 +16,7 @@ import Register from "./pages/Register/Register";
 import UserProfile from "./pages/UserProfile/UserProfile";
 
 import "./index.css";
-import UserProvider from "./context/UserContext";
+import ProtectedRoute from "./pages/ProtectedRoute/ProtectedRoute";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,7 +26,14 @@ const router = createBrowserRouter(
       <Route path="register" element={<Register />} />
       <Route path="cart" element={<Cart />} />
       <Route path="confirmation" element={<Confirmation />} />
-      <Route path="userprofile" element={<UserProfile />} />
+      <Route
+        path="userprofile"
+        element={
+          <ProtectedRoute>
+            <UserProfile />
+          </ProtectedRoute>
+        }
+      />
     </Route>
   )
 );

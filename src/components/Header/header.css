@@ -38,14 +38,15 @@ header {
     position: absolute;
     top: -3px;
     right: -12px;
-    background-color: darkorange;
+    background-color: cornflowerblue;
+    color: white;
     padding: 0.2rem;
     border-radius: 50%;
     height: 1.3rem;
     width: 1.3rem;
     display: flex;
     justify-content: center;
-    font-weight: bolder;
+    font-weight: normal;
     align-items: center;
   }
 }

@@ -1,40 +1,31 @@
-import { FormEvent, useEffect, useRef, useState } from "react";
 import { useUserContext } from "../../context/UserContext";
-import { useNavigate } from "react-router-dom";
+import { SubmitHandler } from "react-hook-form";
+import LoginForm from "../../components/LoginForm/LoginForm";
+import { ILoginUser } from "../../interfaces/interfaces";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
-type Props = {};
+const Login = () => {
+  const { user, login, isLoading, errorMessage } = useUserContext();
+  const navigate = useNavigate();
 
-const Login = (props: Props) => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-
-  const { login, errorMessage, infoMessage } = useUserContext();
-
-  const handleLogin = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    login(email, password, "/userprofile");
+  const onSubmit: SubmitHandler<ILoginUser> = async (data: ILoginUser) => {
+    login(data.email, data.password, "/userprofile");
   };
 
+  useEffect(() => {
+    if (user) navigate("/userprofile");
+  }, [user, navigate]);
+
   return (
-    <>
-      <form onSubmit={(e) => handleLogin(e)}>
-        <input
-          type="text"
-          value={email}
-          placeholder="email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="text"
-          value={password}
-          placeholder="password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button>Login</button>
-      </form>
+    <div className="box-container form-wrapper">
+      <h1>Logga in</h1>
+      <LoginForm isLoading={isLoading} onSubmit={onSubmit} />
       {errorMessage && <p>{errorMessage}</p>}
-      {infoMessage && <p>{infoMessage}</p>}
-    </>
+      <div className="toggle-link">
+        <Link to="/register">Registrera dig</Link>
+      </div>
+    </div>
   );
 };
 
