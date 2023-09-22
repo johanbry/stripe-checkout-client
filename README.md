@@ -33,6 +33,9 @@ Kör följande kommandon för att starta projektet i dev mode. Visa sedan applik
 - React
 - Typescript
 - Vite
+- React Router
+- React Hook Form
+- Joi
 
 ## Reflektioner/förbättringar
 
