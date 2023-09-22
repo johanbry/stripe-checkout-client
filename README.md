@@ -28,7 +28,7 @@ Kör följande kommandon för att starta projektet i dev mode. Visa sedan applik
 
 `npm run dev`
 
-## Använda tekniker/språk/ramverk etc.
+## Använda tekniker/språk/ramverk/paket etc.
 
 - React
 - Typescript
