@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 
 import "./home.css";
 import ProductList from "../../components/ProductList/ProductList";
-import { IProduct } from "../../context/CartContext";
+import { IProduct } from "./../../interfaces/interfaces";
+import AnimationDotsPulse from "../../components/AnimationDotsPulse/AnimationDotsPulse";
 
 const Home = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
@@ -14,24 +15,16 @@ const Home = () => {
       try {
         setIsLoading(true);
         const res = await fetch("/api/products");
-        if (!res.ok) throw Error;
+        if (!res.ok) {
+          const data = await res.json();
+          throw new Error(data);
+        }
         const products: IProduct[] = await res.json();
-
-        /*         const products: IProduct[] = data.map((prod) => {
-          return {
-            id: prod.id,
-            name: prod.name,
-            description: prod.description,
-            price: prod.default_price.unit_amount,
-            price_id: prod.default_price.id,
-            image: prod.images[0],
-          };
-        }); */
 
         setProducts(products);
         setIsLoading(false);
       } catch (error) {
-        setErrorMessage("Error fetching products");
+        setErrorMessage((error as Error).message);
         setIsLoading(false);
       }
     };
@@ -41,8 +34,13 @@ const Home = () => {
 
   return (
     <div>
+      <h1>Produkter</h1>
       <ProductList products={products} />
-      {isLoading && <p>Loading...</p>}
+      {isLoading && (
+        <div style={{ height: "80vh" }}>
+          <AnimationDotsPulse />
+        </div>
+      )}
       {errorMessage && <p>{errorMessage}</p>}
     </div>
   );
