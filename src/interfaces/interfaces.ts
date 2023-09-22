@@ -63,6 +63,7 @@ export interface IUserContext {
   user: IUser | null;
   isLoading: boolean;
   errorMessage: string | null;
+  setErrorMessage: React.Dispatch<React.SetStateAction<string | null>>;
   registerSuccess: boolean;
   setRegisterSuccess: React.Dispatch<React.SetStateAction<boolean>>;
   register: (
