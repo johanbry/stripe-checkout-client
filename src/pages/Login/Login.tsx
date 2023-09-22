@@ -6,7 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 const Login = () => {
-  const { user, login, isLoading, errorMessage } = useUserContext();
+  const { user, login, isLoading, errorMessage, setErrorMessage } =
+    useUserContext();
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<ILoginUser> = async (data: ILoginUser) => {
@@ -17,11 +18,15 @@ const Login = () => {
     if (user) navigate("/userprofile");
   }, [user, navigate]);
 
+  useEffect(() => {
+    setErrorMessage(null);
+  }, [setErrorMessage]);
+
   return (
     <div className="box-container form-wrapper">
       <h1>Logga in</h1>
       <LoginForm isLoading={isLoading} onSubmit={onSubmit} />
-      {errorMessage && <p>{errorMessage}</p>}
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
       <div className="toggle-link">
         <Link to="/register">Registrera dig</Link>
       </div>
