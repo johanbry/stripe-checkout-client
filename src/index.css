@@ -20,3 +20,58 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
+h1,
+h2 {
+  margin: 0.3rem 0 1rem 0;
+}
+
+h3,
+h4 {
+  margin: 0.3rem 0 0.5rem 0;
+}
+
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.5rem;
+  > input {
+    padding: 0.4rem;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+  }
+  > button {
+    padding: 0.4rem;
+    align-self: center;
+  }
+  > span {
+    height: 0.8rem;
+    color: red;
+    font-size: small;
+  }
+}
+
+button {
+  padding: 0.4rem 0.6rem;
+  background-color: black;
+  color: white;
+  border-radius: 4px;
+  text-transform: uppercase;
+  cursor: pointer;
+  letter-spacing: 0.1rem;
+  border: 1px solid black;
+  &:hover {
+    background-color: white;
+    color: black;
+  }
+  &.btn-reverse {
+    background-color: white;
+    color: black;
+    &:hover {
+      background-color: black;
+      color: white;
+    }
+  }
+}
