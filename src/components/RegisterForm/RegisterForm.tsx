@@ -44,6 +44,7 @@ const RegisterForm = ({ onSubmit, isLoading }: Props) => {
       <input
         autoComplete="new-password"
         id="password"
+        type="password"
         {...register("password")}
       />
       <span>{errors.password?.message}</span>
