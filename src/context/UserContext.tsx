@@ -45,6 +45,16 @@ const UserProvider = ({ children }: PropsWithChildren) => {
     authorize();
   }, [setUser]);
 
+  useEffect(() => {
+    let timer: number;
+    if (errorMessage) {
+      timer = setTimeout(() => {
+        setErrorMessage(null);
+      }, 5000);
+    }
+    return () => clearTimeout(timer);
+  }, [errorMessage]);
+
   const register = async (
     firstName: string,
     lastName: string,
@@ -118,6 +128,7 @@ const UserProvider = ({ children }: PropsWithChildren) => {
         login,
         logout,
         setRegisterSuccess,
+        setErrorMessage,
       }}
     >
       {children}
