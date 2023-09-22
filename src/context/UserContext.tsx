@@ -13,6 +13,7 @@ const defaultValues = {
   isLoading: false,
   errorMessage: null,
   registerSuccess: false,
+  setErrorMessage: () => {},
   setRegisterSuccess: () => {},
   register: () => {},
   login: () => {},
