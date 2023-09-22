@@ -7,5 +7,41 @@ main {
 .main-container {
   width: 100%;
   max-width: var(--content-max-width);
-  margin: 1rem;
+  margin: 0.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.box-container {
+  background-color: white;
+  padding: 1rem 0.5rem 1rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #e3e3e3;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.float-right {
+  float: right;
+}
+
+.form-wrapper {
+  width: 100%;
+  max-width: 600px;
+}
+
+.toggle-link {
+  display: flex;
+  justify-content: center;
+}
+
+@media screen and (min-width: 600px) {
+  .main-container {
+    margin: 1rem;
+  }
+  .box-container {
+    padding: 1rem 1rem 2rem 1rem;
+  }
 }
